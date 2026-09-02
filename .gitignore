@@ -1,9 +1,24 @@
 HELP.md
-.gradle
+
+### Gradle / Build ###
+.gradle/
 build/
+out/
+bin/
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+!**/src/main/**/out/
+!**/src/test/**/out/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
 
 ### STS ###
 .apt_generated
@@ -13,18 +28,12 @@ build/
 .settings
 .springBeans
 .sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
 
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
 
 ### NetBeans ###
 /nbproject/private/
