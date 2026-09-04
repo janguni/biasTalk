@@ -35,21 +35,22 @@ public class SubscriptionCommandService {
         Celebrity celebrity = command.celebrity();
 
         // 구독
-        subscriptionRepository.findByFanAndCelebrity(fan, celebrity).ifPresentOrElse(
+        subscriptionRepository.find(fan, celebrity).ifPresentOrElse(
 			Subscription::subscribe,
             () -> subscriptionRepository.save(Subscription.subscribe(fan, celebrity))
         );
     }
 
     /**
-     * 구독 해제
-     * @param command 구독 해제 command
+     * 구독 취소
+     * @param command 구독 취소 command
      */
     @Transactional
     public void unsubscribe(UnSubscriptionCommand command) {
-        Subscription subscription = subscriptionRepository.findByFanAndCelebrity(command.fan(), command.celebrity()).orElseThrow(
+        Subscription subscription = subscriptionRepository.find(command.fan(), command.celebrity()).orElseThrow(
             () -> new DomainException(ErrorCode.NOT_FOUND_SUBSCRIBED));
 
+        // 구독 취소
         subscription.unsubscribe();
     }
 }

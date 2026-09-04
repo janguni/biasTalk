@@ -48,7 +48,7 @@ public class SubscriptionController {
 	}
 
 	/**
-	 * 구독 해제
+	 * 구독 취소
 	 * @param principal
 	 * @param celebrityId 연예인 ID
 	 */
@@ -62,7 +62,7 @@ public class SubscriptionController {
 		// 연예인 조회
 		Celebrity celebrity = celebrityQueryService.getCelebrity(celebrityId);
 		
-		// 구독 해제
+		// 구독 취소
 		subscriptionCommandService.unsubscribe(new UnSubscriptionCommand(fan, celebrity));
 	}
 }

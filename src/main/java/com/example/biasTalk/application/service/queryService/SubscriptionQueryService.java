@@ -4,7 +4,6 @@ import com.example.biasTalk.application.service.queryDto.ActivateSubscriptionQue
 import com.example.biasTalk.application.service.queryDto.SubscribableCelebrityQueryResult;
 import com.example.biasTalk.domain.celebrity.model.Celebrity;
 import com.example.biasTalk.domain.fan.model.Fan;
-import com.example.biasTalk.domain.fan.repository.FanRepository;
 import com.example.biasTalk.domain.subscription.model.Subscription;
 import com.example.biasTalk.domain.subscription.repository.SubscriptionRepository;
 import java.util.List;
@@ -20,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class SubscriptionQueryService {
 
     private final SubscriptionRepository subscriptionRepository;
-    private final FanRepository fanRepository;
 
 	/**
 	 * 구독 중인 구독정보 조회
@@ -28,7 +26,7 @@ public class SubscriptionQueryService {
 	 */
     public ActivateSubscriptionQueryResult getActiveSubscriptions(Fan fan) {
         // 구독 중인 구독 정보 목록
-        List<Subscription> activateSubscriptions = subscriptionRepository.findActivate(fan.getId());
+        List<Subscription> activateSubscriptions = subscriptionRepository.findActivate(fan);
 
 		return ActivateSubscriptionQueryResult.from(activateSubscriptions);
     }
@@ -40,8 +38,7 @@ public class SubscriptionQueryService {
 	 */
 	public SubscribableCelebrityQueryResult getSubscribableCelebrities(Fan fan) {
 		// 구독 중인 연예인 목록 조회
-		List<Celebrity> subscribableCelebrities = subscriptionRepository.findSubscribable(
-			fan.getId());
+		List<Celebrity> subscribableCelebrities = subscriptionRepository.findSubscribable(fan);
 
 		return SubscribableCelebrityQueryResult.from(subscribableCelebrities);
 	}

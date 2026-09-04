@@ -12,6 +12,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+/**
+ * 구독
+ */
 @Entity
 @Table(name = "subscribe")
 @Getter
@@ -71,13 +74,17 @@ public class Subscription {
     }
 
     /**
-     * 구독 해제
+     * 구독 취소
      */
     public void unsubscribe() {
         this.status = SubscriptionStatus.CANCELED;
         this.unsubscribedAt = LocalDateTime.now();
     }
 
+    /**
+     * 구독 여부 확인
+     * @return 구독 중이면 true
+     */
     public boolean isSubscribe() {
         return SubscriptionStatus.SUBSCRIBED.equals(this.status);
     }

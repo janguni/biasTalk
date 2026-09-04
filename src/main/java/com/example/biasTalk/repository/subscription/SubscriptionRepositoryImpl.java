@@ -24,7 +24,7 @@ public class SubscriptionRepositoryImpl implements SubscriptionRepository {
     private final SubscriptionJpaRepository subscriptionJpaRepository;
 
     @Override
-    public Optional<Subscription> findByFanAndCelebrity(Fan fan, Celebrity celebrity) {
+    public Optional<Subscription> find(Fan fan, Celebrity celebrity) {
         return Optional.ofNullable(
             queryFactory
                 .selectFrom(subscription)
@@ -41,25 +41,20 @@ public class SubscriptionRepositoryImpl implements SubscriptionRepository {
         subscriptionJpaRepository.save(subscription);
     }
 
-    /**
-     * 구독 중인 구독 정보 목록
-     * @param fanId 팬 id
-     * @return 구독 중인 구독 정보 목록
-     */
     @Override
-    public List<Subscription> findActivate(long fanId) {
+    public List<Subscription> findActivate(Fan fan) {
         return queryFactory
             .selectFrom(subscription)
             .join(subscription.celebrity, celebrity).fetchJoin() // celebrity 정보 모두 가져옴
             .where(
-                subscription.fan.id.eq(fanId),
+                subscription.fan.id.eq(fan.getId()),
                 subscription.status.eq(SubscriptionStatus.SUBSCRIBED)
             )
             .fetch();
     }
 
     @Override
-    public List<Celebrity> findSubscribable(long fanId) {
+    public List<Celebrity> findSubscribable(Fan fan) {
         return queryFactory
             .selectFrom(celebrity)
             .where(celebrity.id.notIn( // 구독 중인 셀럽 ID를 제외
@@ -67,7 +62,7 @@ public class SubscriptionRepositoryImpl implements SubscriptionRepository {
                     .select(subscription.celebrity.id)
                     .from(subscription)
                     .where(
-                        subscription.fan.id.eq(fanId),
+                        subscription.fan.id.eq(fan.getId()),
                         subscription.status.eq(SubscriptionStatus.SUBSCRIBED)
                     )
             ))
