@@ -1,0 +1,15 @@
+### 구독
+POST http://localhost:8080/subscription/subscribe/3
+Authorization: Bearer {{JWT}}
+
+### 구독 취소
+PUT http://localhost:8080/subscription/unsubscribe/2
+Authorization: Bearer {{JWT}}
+
+### 구독 중인 구독 정보 조회
+GET http://localhost:8080/subscription/actives
+Authorization: Bearer {{JWT}}
+
+### 구독 가능한 연예인 정보 조회
+GET http://localhost:8080/subscription/subscribables
+Authorization: Bearer {{JWT}}
