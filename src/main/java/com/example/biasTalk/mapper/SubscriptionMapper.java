@@ -16,7 +16,7 @@ public abstract class SubscriptionMapper {
 
     public abstract ActiveSubscriptionInfosRspDto.SubscriptionInfo mapItem(ActivateSubscriptionQueryResult.SubscriptionInfo value);
 
-    @Mapping(target = "subscribableCelebrities", source = "subscribableCelebrities")
+    @Mapping(target = "subscribableCelebrityInfos", source = "subscribableCelebrities")
     public abstract SubscribableCelebrityRspDto toRspDto(SubscribableCelebrityQueryResult queryResult);
 
     public abstract SubscribableCelebrityRspDto.CelebrityInfo mapItem(SubscribableCelebrityQueryResult.CelebrityInfo value);
